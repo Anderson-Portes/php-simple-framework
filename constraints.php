@@ -1,7 +1,7 @@
 <?php
 
 //App
-define('APP_NAME', 'SIMPLE APP');
+define('APP_NAME', 'My Blog');
 define('SITE_URL', str_replace('index.php', '', $_SERVER['PHP_SELF']));
 
 //Database

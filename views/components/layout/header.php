@@ -18,3 +18,9 @@
 
 <body>
   <?= component('navbar') ?>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const config = {
+      site_url: "http://localhost<?= site_url() ?>"
+    }
+  </script>

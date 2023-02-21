@@ -13,6 +13,7 @@ class PostController
   public function index()
   {
     $posts = $this->model->all();
+    if (request()->toArray()['fetch'] ?? false) return $posts;
     return page('post.index', compact('posts'));
   }
 
@@ -28,9 +29,7 @@ class PostController
 
   public function create()
   {
-    $this->model->create(request()->toArray());
-    session()->set('success', 'Post created successfully!');
-    return redirect('/post/');
+    return $this->model->create(request()->toArray());
   }
 
   public function edit($id)
@@ -41,9 +40,8 @@ class PostController
 
   public function update($id)
   {
-    $this->model->update(request()->toArray(), $id);
-    session()->set('success', 'Post updated successfully!');
-    return redirect('/post/');
+    return request()->toArray();
+    return $this->model->update(request()->toArray(), $id);
   }
 
   public function destroy($id)

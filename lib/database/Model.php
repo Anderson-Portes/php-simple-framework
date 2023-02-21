@@ -37,9 +37,9 @@ abstract class Model
 
   public function update(array $data, $ref): array | string
   {
-    $data = array_filter($data, function ($value, $key) {
+    $data = array_filter($data, function ($key) {
       return in_array($key, $this->fields);
-    }, ARRAY_FILTER_USE_BOTH);
+    }, ARRAY_FILTER_USE_KEY);
     $setStr = "";
     foreach ($data as $key => $field) {
       $setStr .= $key . " = " . (is_string($field) ? "'" . $field . "'" : $field) . (array_key_last($data) === $key ? " " : ", ");

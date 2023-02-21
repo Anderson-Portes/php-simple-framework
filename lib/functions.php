@@ -50,7 +50,27 @@ function redirect(string $url): void
   Redirect::to($url);
 }
 
+function redirect_if(bool $clause, string $url)
+{
+  Redirect::if($clause, $url);
+}
+
+function redirect_back(): void
+{
+  Redirect::back();
+}
+
+function asset(string $path)
+{
+  return Component::asset($path);
+}
+
 function session(): Session
 {
   return new Session;
+}
+
+function vue(string $path): string
+{
+  return Component::vue($path);
 }
