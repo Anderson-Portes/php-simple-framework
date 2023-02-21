@@ -1,9 +1,11 @@
 <?php
 
-function load(string $path): void
+session_start();
+
+function load(string $path = __DIR__): void
 {
   $currentDirs = scandir($path);
-  $blockedDirs = ['.', '..', 'index.php', 'loader.php', '.htaccess'];
+  $blockedDirs = ['.', '..', 'index.php', 'loader.php', '.htaccess', '.git', 'views'];
   $filteredDirs = array_filter($currentDirs, fn (string $dir) => !in_array($dir, $blockedDirs));
   array_map(
     function (string $dir) use ($path) {
@@ -14,4 +16,4 @@ function load(string $path): void
   );
 }
 
-load(__DIR__);
+load();

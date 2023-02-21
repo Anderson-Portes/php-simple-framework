@@ -37,6 +37,9 @@ abstract class Model
 
   public function update(array $data, $ref): array | string
   {
+    $data = array_filter($data, function ($value, $key) {
+      return in_array($key, $this->fields);
+    }, ARRAY_FILTER_USE_BOTH);
     $setStr = "";
     foreach ($data as $key => $field) {
       $setStr .= $key . " = " . (is_string($field) ? "'" . $field . "'" : $field) . (array_key_last($data) === $key ? " " : ", ");
@@ -53,6 +56,16 @@ abstract class Model
   public function last(): array
   {
     return $this->conn->query('select * from ' . $this->table . " order by " . $this->primaryKey . " desc limit 1")->fetch(PDO::FETCH_ASSOC);
+  }
+
+  public function where(string $where): array
+  {
+    return $this->conn->query("select * from " . $this->table . " where " . $where)->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function firstWhere(string $where): array
+  {
+    return $this->conn->query("select * from " . $this->table . " where " . $where)->fetch(PDO::FETCH_ASSOC);
   }
 
   public function destroy($ref): void

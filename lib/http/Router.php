@@ -12,7 +12,7 @@ class Router
 
   private function addRoute(string $path, callable | array | string $action, string $method): void
   {
-    if ($path[0] === "/") $path = substr($path, 1);
+    if (str_starts_with($path, '/')) $path = substr($path, 1);
     if (str_ends_with($path, '/')) $path = substr($path, 0, -1);
     $this->routes[$method][$path] = $action;
   }
@@ -42,7 +42,7 @@ class Router
     $this->addRoute($path, $action, 'DELETE');
   }
 
-  public function rest(string $path, string $controllerNamespace): void
+  public function api(string $path, string $controllerNamespace): void
   {
     $this->get($path, [$controllerNamespace, 'index']);
     $this->get($path . "/{id}", [$controllerNamespace, 'find']);
@@ -50,6 +50,13 @@ class Router
     $this->put($path . "/{id}", [$controllerNamespace, 'update']);
     $this->patch($path . "/{id}", [$controllerNamespace, 'update']);
     $this->delete($path . "/{id}", [$controllerNamespace, 'destroy']);
+  }
+
+  public function resource(string $path, string $controllerNamespace): void
+  {
+    $this->get($path . "/new", [$controllerNamespace, "new"]);
+    $this->api($path, $controllerNamespace);
+    $this->get($path . "/{id}/edit", [$controllerNamespace, "edit"]);
   }
 
   private function callAction(callable | array | string $action, array $vars = [])
@@ -68,7 +75,7 @@ class Router
   {
     $url = current_url();
     $explodedUrl = explode("/", $url);
-    foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $key => $value) {
+    foreach ($this->routes[current_method()] as $key => $value) {
       $explodedAction = explode("/", $key);
       if (count($explodedAction) !== count($explodedUrl)) continue;
       $validRoute = true;
@@ -76,7 +83,9 @@ class Router
       for ($i = 0; $i < count($explodedAction); $i++) {
         $currentAction = $explodedAction[$i];
         if (str_starts_with($currentAction, '{') && str_ends_with($currentAction, '}')) {
-          $vars[] = $explodedUrl[$i];
+          $key = str_replace('{', '', $currentAction);
+          $key = str_replace('}', '', $key);
+          $vars[$key] = $explodedUrl[$i];
         } else if ($currentAction !== $explodedUrl[$i]) {
           $validRoute = false;
           break;
@@ -85,6 +94,6 @@ class Router
       if (!$validRoute) continue;
       die($this->callAction($value, $vars));
     }
-    echo json(['message' => 'Page not found.'], 404);
+    die(json(['message' => 'Page not found.'], 404));
   }
 }

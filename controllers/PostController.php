@@ -10,31 +10,46 @@ class PostController
     $this->model = new Post;
   }
 
-  public function index(): array | string
+  public function index()
   {
-    return $this->model->all();
+    $posts = $this->model->all();
+    return page('post.index', compact('posts'));
   }
 
-  public function find($id): array | string
+  public function find($id)
   {
     return $this->model->find($id);
   }
 
-  public function create(): array | string
+  public function new()
   {
-    $data = request()->toArray();
-    return $this->model->create($data);
+    return page('post.new');
   }
 
-  public function update($id): array | string
+  public function create()
   {
-    $data = request()->toArray();
-    return $this->model->update($data, $id);
+    $this->model->create(request()->toArray());
+    session()->set('success', 'Post created successfully!');
+    return redirect('/post/');
   }
 
-  public function destroy($ref): string | array
+  public function edit($id)
   {
-    $this->model->destroy($ref);
-    return ['message' => 'Post deleted successfully.'];
+    $post = $this->model->find($id);
+    return page('post.edit', compact('post'));
+  }
+
+  public function update($id)
+  {
+    $this->model->update(request()->toArray(), $id);
+    session()->set('success', 'Post updated successfully!');
+    return redirect('/post/');
+  }
+
+  public function destroy($id)
+  {
+    $this->model->destroy($id);
+    session()->set('success', 'Post deleted successfully');
+    return redirect('/post/');
   }
 }
