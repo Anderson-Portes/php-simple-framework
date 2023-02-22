@@ -81,7 +81,7 @@ const defineComponent = {
           this.site_url + "/auth/register",
           this.form
         );
-        console.log(data);
+        if (data.success) location.href = this.site_url + "/auth/login";
       } catch ({ response }) {
         this.form.errors = response.data.errors;
       }
