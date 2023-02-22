@@ -1,4 +1,4 @@
-<?= component('layout.header')  ?>
+<?= component('layout.header', ['nav' => true])  ?>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <div id="app">
   <?php require_once APP_ROOT . "\\public\\vue\\" . $path . ".vue" ?>

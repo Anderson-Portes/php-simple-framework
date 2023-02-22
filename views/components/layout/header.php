@@ -17,7 +17,7 @@
 </head>
 
 <body>
-  <?= component('navbar') ?>
+  <?= isset($nav) && $nav ? component('navbar') : '' ?>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script>
     const api = axios.create({

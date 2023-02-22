@@ -20,9 +20,9 @@ function request(): Request
   return new Request;
 }
 
-function component(string $path): void
+function component(string $path, array $data = []): void
 {
-  Component::render($path);
+  Component::render($path, $data);
 }
 
 function page(string $path, array $data = []): void
@@ -88,4 +88,9 @@ function auth(): Auth
 function runMiddlewares(...$middlewares)
 {
   array_map(fn ($m) => $m::run(), $middlewares);
+}
+
+function not_found()
+{
+  return Response::notFound();
 }

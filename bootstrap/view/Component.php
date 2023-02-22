@@ -2,9 +2,10 @@
 
 class Component
 {
-  public static function render(string $path): void
+  public static function render(string $path, array $data = []): void
   {
     $path = str_replace('.', '/', $path);
+    extract($data);
     include APP_ROOT . "\\views\\components\\" . $path . ".php";
   }
 
