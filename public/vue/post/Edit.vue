@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-header">
           <h5>Edit The Post</h5>
-          <a :href="site_url + 'post'" class="btn btn-sm btn-primary">
+          <a :href="site_url + '/post'" class="btn btn-sm btn-primary">
             <i class="bi bi-arrow-left me-2"></i>Back To List
           </a>
         </div>
@@ -61,7 +61,7 @@ const defineComponent = {
     async handleSubmit() {
       this.success = null;
       const { title, content } = this.post;
-      const response = await fetch(this.site_url + "post", {
+      const response = await fetch(this.site_url + "/post", {
         method: "POST",
         body: JSON.stringify({ title, content }),
       }).catch(console.log);

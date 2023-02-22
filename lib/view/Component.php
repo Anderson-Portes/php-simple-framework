@@ -11,12 +11,12 @@ class Component
   public static function vue(string $path): string
   {
     $path = str_replace('.', '/', $path);
-    return '<script src="' . site_url('public/vue/' . $path . '.js') . '"></script>';
+    return '<script src="' . site_url('/public/vue/' . $path . '.js') . '"></script>';
   }
 
   public static function asset(string $path = ""): string
   {
-    return site_url('public/' . $path);
+    return site_url('/public/' . $path);
   }
 
   public static function inputMethod(string $method): string

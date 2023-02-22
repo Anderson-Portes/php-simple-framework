@@ -34,4 +34,13 @@ class Request
     $success = true;
     return ['errors' => [], 'success' => $success];
   }
+
+  public function only(string ...$fileds): array
+  {
+    $values = [];
+    foreach ($fileds as $field) {
+      $values[$field] = $this->$field ?? null;
+    }
+    return $values;
+  }
 }

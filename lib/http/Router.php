@@ -42,21 +42,38 @@ class Router
     $this->addRoute($path, $action, 'DELETE');
   }
 
-  public function api(string $path, string $controllerNamespace): void
+  public function listRoutes()
   {
-    $this->get($path, [$controllerNamespace, 'index']);
-    $this->get($path . "/{id}", [$controllerNamespace, 'find']);
-    $this->post($path, [$controllerNamespace, 'create']);
-    $this->put($path . "/{id}", [$controllerNamespace, 'update']);
-    $this->patch($path . "/{id}", [$controllerNamespace, 'update']);
-    $this->delete($path . "/{id}", [$controllerNamespace, 'destroy']);
   }
 
-  public function resource(string $path, string $controllerNamespace): void
+  public function api(string $path, string $controllerNamespace, array $options = []): void
   {
-    $this->get($path . "/new", [$controllerNamespace, "new"]);
-    $this->api($path, $controllerNamespace);
-    $this->get($path . "/{id}/edit", [$controllerNamespace, "edit"]);
+    if ($this->checkIsAValidRoute('index', $options))
+      $this->get($path, [$controllerNamespace, 'index']);
+    if ($this->checkIsAValidRoute('find', $options))
+      $this->get($path . "/{id}", [$controllerNamespace, 'find']);
+    if ($this->checkIsAValidRoute('create', $options))
+      $this->post($path, [$controllerNamespace, 'create']);
+    if ($this->checkIsAValidRoute('update', $options)) {
+      $this->put($path . "/{id}", [$controllerNamespace, 'update']);
+      $this->patch($path . "/{id}", [$controllerNamespace, 'update']);
+    }
+    if ($this->checkIsAValidRoute('destroy', $options))
+      $this->delete($path . "/{id}", [$controllerNamespace, 'destroy']);
+  }
+
+  public function resource(string $path, string $controllerNamespace, array $options = []): void
+  {
+    if ($this->checkIsAValidRoute('new', $options))
+      $this->get($path . "/new", [$controllerNamespace, "new"]);
+    $this->api($path, $controllerNamespace, $options);
+    if ($this->checkIsAValidRoute('edit', $options))
+      $this->get($path . "/{id}/edit", [$controllerNamespace, "edit"]);
+  }
+
+  private function checkIsAValidRoute(string $route, array $options)
+  {
+    return (!isset($options['only']) || in_array($route, $options['only'])) && (!isset($options['except']) || !in_array($route, $options['except']));
   }
 
   private function callAction(callable | array | string $action, array $vars = [])

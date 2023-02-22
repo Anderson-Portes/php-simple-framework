@@ -1,4 +1,5 @@
 <?= component('layout.header')  ?>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <div id="app">
   <?php require_once APP_ROOT . "\\public\\vue\\" . $path . ".vue" ?>
 </div>
@@ -12,7 +13,6 @@
     ...globalData,
     ...pageData
   });
-  console.log(defineComponent.data());
   Vue.createApp(defineComponent).mount("#app");
 </script>
 <?= component('layout.footer')  ?>

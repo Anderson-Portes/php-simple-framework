@@ -7,12 +7,21 @@ class Session
     return isset($_SESSION[$key]);
   }
 
+  public function get(string $key): mixed
+  {
+    return $_SESSION[$key] ?? null;
+  }
 
   public function flash(string $key)
   {
-    $message = $_SESSION[$key];
-    unset($_SESSION[$key]);
+    $message = $this->get($key);
+    $this->remove($key);
     return $message;
+  }
+
+  public function remove(string $key): void
+  {
+    unset($_SESSION[$key]);
   }
 
   public function set(string $key, mixed $value): Session

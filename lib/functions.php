@@ -74,3 +74,18 @@ function vue(string $path, array $data = []): void
 {
   Page::vue($path, $data);
 }
+
+function bcrypt(string $text): string
+{
+  return Hash::make($text);
+}
+
+function auth(): Auth
+{
+  return new Auth;
+}
+
+function runMiddlewares(...$middlewares)
+{
+  array_map(fn ($m) => $m::run(), $middlewares);
+}

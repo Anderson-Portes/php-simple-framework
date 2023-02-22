@@ -6,12 +6,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="<?= site_url() ?>">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<?= site_url('/post/') ?>">Posts</a>
-        </li>
+        <?php if (auth()->check()) : ?>
+          <li class="nav-item">
+            <form action="<?= site_url('/auth/logout') ?>" method="post">
+              <button class="btn text-danger">Logout</button>
+            </form>
+          </li>
+        <?php else : ?>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= site_url('/auth/login') ?>">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= site_url('/auth/register') ?>">Register</a>
+          </li>
+        <?php endif; ?>
       </ul>
     </div>
   </div>

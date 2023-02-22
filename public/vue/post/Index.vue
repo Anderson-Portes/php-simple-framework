@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-header">
           <h5>Post List</h5>
-          <a :href="site_url + 'post/new'" class="btn btn-sm btn-primary">
+          <a :href="site_url + '/post/new'" class="btn btn-sm btn-primary">
             <i class="bi bi-plus me-2"></i>Add new post
           </a>
         </div>
@@ -37,7 +37,7 @@
                   <td>{{ post.content }}</td>
                   <td>
                     <a
-                      :href="site_url + 'post/' + post.id + '/edit'"
+                      :href="site_url + '/post/' + post.id + '/edit'"
                       class="btn btn-sm btn-success me-1"
                     >
                       <i class="bi bi-pencil-square"></i>
@@ -67,12 +67,12 @@ const defineComponent = {
   }),
   methods: {
     async fetchPosts() {
-      const response = await fetch(this.site_url + "post?fetch=true");
+      const response = await fetch(this.site_url + "/post?fetch=true");
       this.posts = await response.json();
     },
     deletePost(id) {
       if (!confirm("Do you want to delete this post?")) return;
-      fetch(this.site_url + "post/" + id, {
+      fetch(this.site_url + "/post/" + id, {
         method: "DELETE",
       }).then(() => {
         this.success = "Post deleted successfully";

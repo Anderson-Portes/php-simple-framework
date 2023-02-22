@@ -16,4 +16,10 @@ class DB
       die($ex->getMessage());
     }
   }
+
+  public static function query(string $query): void
+  {
+    $pdo = self::connect();
+    $pdo->query($query);
+  }
 }

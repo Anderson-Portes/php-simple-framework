@@ -2,7 +2,7 @@
 
 //App
 define('APP_NAME', 'Simple Framework');
-define('SITE_URL', 'http://localhost' . str_replace('index.php', '', $_SERVER['PHP_SELF']));
+define('SITE_URL', 'http://localhost' . rtrim(str_replace('index.php', '', $_SERVER['PHP_SELF']), '/'));
 define('APP_ROOT', __DIR__);
 
 //Database

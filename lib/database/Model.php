@@ -28,8 +28,9 @@ abstract class Model
     $fieldsStr = "(";
     $valuesStr = "(";
     foreach ($this->fields as $key => $field) {
+      $data[$field] = $data[$field] ?? null;
       $fieldsStr .= $field . (array_key_last($this->fields) == $key ? ")" : ",");
-      $valuesStr .= (is_string($data[$field]) ? "'" . $data[$field] . "'" : $data[$field]) . (array_key_last($this->fields) === $key ? ")" : ",");
+      $valuesStr .= (is_string($data[$field]) ? "'" . $data[$field] . "'" : $data[$field] ?? 'null') . (array_key_last($this->fields) === $key ? ")" : ",");
     }
     $this->conn->query("insert into " . $this->table . " " . $fieldsStr . " values " . $valuesStr);
     return $this->last();
@@ -63,7 +64,7 @@ abstract class Model
     return $this->conn->query("select * from " . $this->table . " where " . $where)->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function firstWhere(string $where): array
+  public function firstWhere(string $where): array | bool
   {
     return $this->conn->query("select * from " . $this->table . " where " . $where)->fetch(PDO::FETCH_ASSOC);
   }
