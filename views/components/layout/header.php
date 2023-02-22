@@ -19,3 +19,11 @@
 <body>
   <?= component('navbar') ?>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    const api = axios.create({
+      baseURL: "<?= site_url() ?>",
+      headers: {
+        Accept: "application/json"
+      }
+    });
+  </script>

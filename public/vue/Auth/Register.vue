@@ -77,10 +77,7 @@ const defineComponent = {
   methods: {
     async handleSubmit() {
       try {
-        const { data } = await axios.post(
-          this.site_url + "/auth/register",
-          this.form
-        );
+        const { data } = await api.post("/auth/register", this.form);
         if (data.success) location.href = this.site_url + "/auth/login";
       } catch ({ response }) {
         this.form.errors = response.data.errors;
