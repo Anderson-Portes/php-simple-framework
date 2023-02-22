@@ -43,6 +43,11 @@ class Auth
 
   public static function logout()
   {
+    $user = self::user();
+    $user['access_token'] = null;
+    $user['updated_at'] = date("Y-m-d H:i:s", time());
+    $user['access_token'] = base64_encode(json_encode($user));
+    User::make()->update($user, $user['id']);
     session()->remove('auth.user');
   }
 }

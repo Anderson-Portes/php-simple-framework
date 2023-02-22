@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "\\constraints.php";
-require_once __DIR__ . "\\lib\\database\\DB.php";
+require_once __DIR__ . "\\bootstrap\\database\\DB.php";
 
 if (empty($argv)) die;
 
