@@ -4,7 +4,7 @@ class HomeController
 {
   public function index()
   {
-    runMiddlewares(AuthMiddleware::class);
-    return vue('Index');
+    AuthMiddleware::run();
+    return json(['message' => 'Hello World']);
   }
 }

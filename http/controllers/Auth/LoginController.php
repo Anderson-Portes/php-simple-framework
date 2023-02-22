@@ -7,15 +7,9 @@ class LoginController
     GuestMiddleware::run();
   }
 
-  public function index()
-  {
-    return vue('Auth.Login');
-  }
-
-  public function create()
+  public function __invoke()
   {
     $data = LoginValidation::make(true);
-    auth()->login($data->user);
-    return json(['success' => true, 'message' => 'Logged Successfully']);
+    return json(['success' => true, 'message' => 'Logged successfully', 'data' => $data->user]);
   }
 }

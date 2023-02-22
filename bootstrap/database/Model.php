@@ -73,4 +73,9 @@ abstract class Model
   {
     $this->conn->query('delete from ' . $this->table . " where " . $this->primaryKey . " = '" . $ref . "'");
   }
+
+  public static function make(): object
+  {
+    return new static;
+  }
 }

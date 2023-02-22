@@ -4,6 +4,7 @@ class GuestMiddleware implements Middleware
 {
   public static function run()
   {
-    redirect_if(auth()->check(), site_url());
+    if (auth()->check())
+      die(json(['success' => false, 'message' => 'You are already authenticated'], 403));
   }
 }

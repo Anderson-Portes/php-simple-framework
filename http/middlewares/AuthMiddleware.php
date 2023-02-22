@@ -4,6 +4,7 @@ class AuthMiddleware implements Middleware
 {
   public static function run()
   {
-    redirect_if(auth()->guest(), site_url('/auth/login'));
+    if (auth()->guest())
+      die(json(['success' => false, 'message' => 'You must to be authenticated'], 401));
   }
 }

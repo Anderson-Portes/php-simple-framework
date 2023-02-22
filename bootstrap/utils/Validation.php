@@ -27,10 +27,7 @@ abstract class Validation
 
   public function throwErrors()
   {
-    if ($this->request->wantsJson()) {
-      die(json(['errors' => $this->errors], 412));
-    }
-    session()->set('errors', $this->errors);
+    die(json(['errors' => $this->errors], 412));
   }
 
   public function rules()

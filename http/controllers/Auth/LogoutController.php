@@ -4,8 +4,8 @@ class LogoutController
 {
   public function __invoke()
   {
-    runMiddlewares(AuthMiddleware::class);
+    AuthMiddleware::run();
     auth()->logout();
-    return redirect(site_url('/auth/login'));
+    return json(['success' => true, 'message' => 'logout successfully']);
   }
 }
