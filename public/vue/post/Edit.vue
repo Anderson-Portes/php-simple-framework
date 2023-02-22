@@ -1,26 +1,46 @@
-Vue.createApp({
-  template: `
+<template>
   <div class="row justify-content-center">
     <div class="col-11 col-md-8 p-0">
       <div class="card">
         <div class="card-header">
-          <h5>Create New Posts</h5>
+          <h5>Edit The Post</h5>
           <a :href="site_url + 'post'" class="btn btn-sm btn-primary">
             <i class="bi bi-arrow-left me-2"></i>Back To List
           </a>
         </div>
         <div class="card-body">
-          <div class="alert alert-success alert-dismissible fade show" v-if="success">
+          <div
+            class="alert alert-success alert-dismissible fade show"
+            v-if="success"
+          >
             {{ success }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @click="success = null"></button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+              @click="success = null"
+            ></button>
           </div>
           <form @submit.prevent="handleSubmit">
             <div class="form-floating mb-2">
-              <input class="form-control" id="title" placeholder="Title" v-model="post.title" required>
+              <input
+                class="form-control"
+                id="title"
+                placeholder="Title"
+                v-model="post.title"
+              />
               <label for="title">Title</label>
             </div>
             <div class="form-floating mb-2">
-              <textarea class="form-control" placeholder="Content" v-model="post.content" id="content" style="height: 150px;resize: none;" required></textarea>
+              <textarea
+                class="form-control"
+                placeholder="Content"
+                id="content"
+                style="height: 150px; resize: none"
+                required
+                v-model="post.content"
+              ></textarea>
               <label for="content">Content</label>
             </div>
             <button class="btn btn-sm btn-primary">
@@ -31,13 +51,10 @@ Vue.createApp({
       </div>
     </div>
   </div>
-  `,
+</template>
+<script>
+const defineComponent = {
   data: () => ({
-    site_url: config.site_url,
-    post: {
-      title: "",
-      content: "",
-    },
     success: null,
   }),
   methods: {
@@ -49,11 +66,8 @@ Vue.createApp({
         body: JSON.stringify({ title, content }),
       }).catch(console.log);
       await response.json().catch(console.log);
-      this.success = "Post created successfuly!!";
-      this.resetForm();
-    },
-    resetForm() {
-      this.title = this.content = "";
+      this.success = "Post edited successfuly!!";
     },
   },
-}).mount("#app");
+};
+</script>

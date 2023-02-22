@@ -14,7 +14,7 @@ class PostController
   {
     $posts = $this->model->all();
     if (request()->toArray()['fetch'] ?? false) return $posts;
-    return page('post.index', compact('posts'));
+    return vue('post.index', compact('posts'));
   }
 
   public function find($id)
@@ -24,7 +24,7 @@ class PostController
 
   public function new()
   {
-    return page('post.new');
+    return vue('post.New');
   }
 
   public function create()
@@ -35,7 +35,7 @@ class PostController
   public function edit($id)
   {
     $post = $this->model->find($id);
-    return page('post.edit', compact('post'));
+    return vue('post.edit', compact('post'));
   }
 
   public function update($id)

@@ -4,6 +4,6 @@ class HomeController
 {
   public function index()
   {
-    return page('index');
+    return vue('Index');
   }
 }

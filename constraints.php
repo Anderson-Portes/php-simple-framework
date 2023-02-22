@@ -1,8 +1,9 @@
 <?php
 
 //App
-define('APP_NAME', 'My Blog');
-define('SITE_URL', str_replace('index.php', '', $_SERVER['PHP_SELF']));
+define('APP_NAME', 'Simple Framework');
+define('SITE_URL', 'http://localhost' . str_replace('index.php', '', $_SERVER['PHP_SELF']));
+define('APP_ROOT', __DIR__);
 
 //Database
 define('DB_TYPE', 'mysql');

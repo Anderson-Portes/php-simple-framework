@@ -28,4 +28,10 @@ class Request
   {
     return (array) $this;
   }
+
+  public function validate(): array
+  {
+    $success = true;
+    return ['errors' => [], 'success' => $success];
+  }
 }

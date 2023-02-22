@@ -70,7 +70,7 @@ function session(): Session
   return new Session;
 }
 
-function vue(string $path): string
+function vue(string $path, array $data = []): void
 {
-  return Component::vue($path);
+  Page::vue($path, $data);
 }
