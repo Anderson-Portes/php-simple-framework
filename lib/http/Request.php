@@ -43,4 +43,9 @@ class Request
     }
     return $values;
   }
+
+  public function header(string $key)
+  {
+    return getallheaders()[$key] ?? null;
+  }
 }

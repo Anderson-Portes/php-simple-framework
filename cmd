@@ -15,7 +15,7 @@ if (in_array("migrate", $argv)) {
     $table = require_once $databaseDir . "\\" . $tableName;
     $tableName = substr($tableName, 0, -4);
     if (!isset($table['id']))
-      $table['id'] = 'int auto_increment primary key';
+      $table = ['id' => 'int auto_increment primary key'] + $table;
     $query = "create table if not exists " . $tableName . "(";
     foreach ($table as $field => $type) {
       $query .= $field . " " . $type;

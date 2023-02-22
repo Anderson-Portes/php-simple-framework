@@ -2,14 +2,9 @@
 
 class LoginController
 {
-  private User $model;
-  private Request $request;
-
   public function __construct()
   {
     GuestMiddleware::run();
-    $this->request = request();
-    $this->model = new User;
   }
 
   public function index()
@@ -19,16 +14,8 @@ class LoginController
 
   public function create()
   {
-    $data = $this->request->only('email', 'password');
-    $user = $this->model->firstWhere("email = '" . $data['email'] . "'");
-    if (!$user || !Hash::check($data['password'], $user['password'])) {
-      return json([
-        'errors' => [
-          'email' => 'Invalid login!'
-        ]
-      ], 400);
-    }
-    auth()->login($user);
+    $data = LoginValidation::make(true);
+    auth()->login($data->user);
     return json(['success' => true, 'message' => 'Logged Successfully']);
   }
 }

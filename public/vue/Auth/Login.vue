@@ -9,22 +9,32 @@
               <div class="form-floating mb-2">
                 <input
                   type="email"
-                  class="form-control"
+                  :class="`form-control ${
+                    form.errors.email ? 'is-invalid' : ''
+                  }`"
                   id="email"
                   v-model="form.email"
                   placeholder="Email"
                 />
                 <label for="email">Email</label>
+                <strong class="invalid-feedback" v-if="form.errors.email">
+                  {{ form.errors.email }}
+                </strong>
               </div>
               <div class="form-floating mb-2">
                 <input
                   type="password"
-                  class="form-control"
+                  :class="`form-control ${
+                    form.errors.password ? 'is-invalid' : ''
+                  }`"
                   id="password"
                   v-model="form.password"
                   placeholder="Password"
                 />
                 <label for="password">Password</label>
+                <strong class="invalid-feedback" v-if="form.errors.password">
+                  {{ form.errors.password }}
+                </strong>
               </div>
               <button class="btn btn-sm btn-primary">
                 <i class="bi bi-save me-2"></i>Login
@@ -46,6 +56,7 @@ const defineComponent = {
     form: {
       email: "",
       password: "",
+      errors: {},
     },
   }),
   methods: {
@@ -56,8 +67,8 @@ const defineComponent = {
           this.form
         );
         if (data.success) location.href = this.site_url + "/";
-      } catch (error) {
-        console.log(error);
+      } catch ({ response }) {
+        this.form.errors = response.data.errors;
       }
     },
   },

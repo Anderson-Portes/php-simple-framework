@@ -3,11 +3,9 @@
 class RegisterController
 {
   private User $model;
-  private Request $request;
 
   public function __construct()
   {
-    $this->request = request();
     $this->model = new User;
   }
 
@@ -18,15 +16,9 @@ class RegisterController
 
   public function create()
   {
-    $data = $this->request->only('name', 'email', 'password');
-    if ($this->model->firstWhere("email = '" . $data['email'] . "'")) {
-      return json([
-        'errors' => [
-          'email' => 'Email already exists'
-        ]
-      ], 400);
-    }
-    $data['password'] = Hash::make($data['password']);
+    $data = RegisterValidation::make();
+    $data['password'] = bcrypt($data['password']);
+    $data['access_token'] = base64_encode(json_encode($data));
     $this->model->create($data);
     return json(['success' => true, 'message' => 'Account created successfully']);
   }

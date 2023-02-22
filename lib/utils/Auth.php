@@ -5,7 +5,19 @@ class Auth
 
   public static function user()
   {
-    return session()->get('auth.user');
+    if (session()->has('auth.user')) {
+      $sessionUserId = session()->get('auth.user')['id'] ?? null;
+      return (new User)->firstWhere("id = '" . $sessionUserId . "'");
+    }
+    return self::userApi();
+  }
+
+  public static function userApi()
+  {
+    $authorizationHeader = getallheaders()['Authorization'] ?? null;
+    if (!$authorizationHeader) return;
+    $token = str_replace('Bearer ', '', $authorizationHeader);
+    return (new User)->firstWhere("access_token = '" . $token . "'");
   }
 
   public static function login(array $user): void
@@ -15,7 +27,7 @@ class Auth
 
   public static function check()
   {
-    return session()->has('auth.user');
+    return self::user() ? true : false;
   }
 
   public static function guest()
