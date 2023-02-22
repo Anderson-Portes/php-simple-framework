@@ -2,7 +2,9 @@
 
 //App
 define('APP_NAME', 'Simple Framework');
-define('SITE_URL', 'http://localhost' . rtrim(str_replace('index.php', '', $_SERVER['PHP_SELF']), '/'));
+define('APP_PROTOCOL', (isset($_SERVER['https']) && $_SERVER['https'] != "off" ? "https" : "http") . "://");
+define('APP_DOMAIN', APP_PROTOCOL . $_SERVER['SERVER_NAME']);
+define('SITE_URL', APP_DOMAIN . str_replace('/index.php', '', $_SERVER['PHP_SELF']));
 define('APP_ROOT', __DIR__);
 
 //Database

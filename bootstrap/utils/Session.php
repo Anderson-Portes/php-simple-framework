@@ -12,11 +12,11 @@ class Session
     return $_SESSION[$key] ?? null;
   }
 
-  public function flash(string $key)
+  public function flash(string $key): mixed
   {
-    $message = $this->get($key);
+    $value = $this->get($key);
     $this->remove($key);
-    return $message;
+    return $value;
   }
 
   public function remove(string $key): void

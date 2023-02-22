@@ -5,7 +5,7 @@ class Page
 
   public static function constraints(): array
   {
-    return ['site_url' => site_url()];
+    return ['site_url' => site_url(), 'errors' => session()->flash('errors')];
   }
 
   public static function render(string $path, array $data = []): void

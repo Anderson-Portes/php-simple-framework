@@ -9,10 +9,5 @@ $router->resource('/auth/register', RegisterController::class, [
 $router->resource('/auth/login', LoginController::class, [
   'only' => ['index', 'create']
 ]);
-$router->get('/teste', function () {
-  $func = "empty";
-  $value = null;
-  return $func($value);
-});
 $router->post('/auth/logout', LogoutController::class);
 $router->load();

@@ -3,20 +3,21 @@
 abstract class Validation
 {
 
-  private array $request;
-  public array $errors = [];
+  private Request $request;
+  private array $errors = [];
 
   public function __construct()
   {
-    $this->request = request()->toArray();
+    $this->request = request();
   }
 
   public function values()
   {
     $validatedFields = [];
+    $request = $this->request->toArray();
     $rules = $this->rules();
     foreach ($rules as $field => $validation) {
-      $currentField = $this->request[$field] ?? null;
+      $currentField = $request[$field] ?? null;
       $result = $validation($currentField);
       if (is_string($result)) $this->errors[$field] = $result;
       else $validatedFields[$field] = $currentField;
@@ -26,9 +27,10 @@ abstract class Validation
 
   public function throwErrors()
   {
-    if (request()->header('Content-Type') == "application/json") {
+    if ($this->request->wantsJson()) {
       die(json(['errors' => $this->errors], 412));
     }
+    session()->set('errors', $this->errors);
   }
 
   public function rules()

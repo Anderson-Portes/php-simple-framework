@@ -1,6 +1,6 @@
 <?php
 
-class AuthMiddleware
+class AuthMiddleware implements Middleware
 {
   public static function run()
   {

@@ -1,6 +1,6 @@
 <?php
 
-class GuestMiddleware
+class GuestMiddleware implements Middleware
 {
   public static function run()
   {

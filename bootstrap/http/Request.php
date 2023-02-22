@@ -48,4 +48,9 @@ class Request
   {
     return getallheaders()[$key] ?? null;
   }
+
+  public function wantsJson(): bool
+  {
+    return $this->header('Accept') === "application/json";
+  }
 }
