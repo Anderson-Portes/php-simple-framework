@@ -31,6 +31,7 @@ abstract class Validation
       die(json(['errors' => $this->errors], 412));
     }
     session()->set('errors', $this->errors);
+    return redirect_back();
   }
 
   public function rules()
@@ -38,7 +39,7 @@ abstract class Validation
     return [];
   }
 
-  public static function make(bool $returnObject = false): array | object
+  public static function make(bool $returnObject = false)
   {
     $obj = new static;
     $values = $obj->values();

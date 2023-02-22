@@ -111,6 +111,8 @@ class Router
       if (!$validRoute) continue;
       die($this->callAction($value, $vars));
     }
-    die(json(['message' => 'Page not found.'], 404));
+    if (request()->wantsJson())
+      die(json(['message' => 'Page not found.'], 404));
+    return page('errors.404');
   }
 }

@@ -15,6 +15,9 @@ class Redirect
 
   public static function back(): void
   {
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    if (isset($_SERVER['HTTP_REFERER']))
+      header('Location: ' . $_SERVER['HTTP_REFERER']);
+    else
+      echo "<script>window.history.back()</script>";
   }
 }
