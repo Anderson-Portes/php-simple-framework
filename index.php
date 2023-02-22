@@ -2,6 +2,7 @@
 
 require_once "loader.php";
 $router = new Router;
+$router->prefix('/api/v1/');
 $router->get('/', [HomeController::class, 'index']);
 $router->prefix('auth')->group(function ($router) {
   $router->post('/register', RegisterController::class);

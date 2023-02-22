@@ -21,8 +21,7 @@ class Router
 
   public function prefix(string $path): Router
   {
-    if (str_starts_with($path, '/')) $path = substr($path, 1);
-    if (!str_ends_with($path, '/')) $path .= "/";
+    if (str_ends_with($path, '/')) $path = substr($path, 0, -1);
     $this->prefix = $path;
     return $this;
   }
@@ -36,7 +35,8 @@ class Router
 
   private function addRoute(string $path, callable | array | string $action, string $method): void
   {
-    $path = $this->prefix . $this->removeBarsToString($path);
+    if (str_starts_with($path, '/')) $path = substr($path, 1);
+    $path = $this->removeBarsToString($this->prefix . "/" . $path);
     $this->routes[$method][$path] = $action;
   }
 
