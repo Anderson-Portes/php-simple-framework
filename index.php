@@ -3,7 +3,9 @@
 require_once "loader.php";
 $router = new Router;
 $router->get('/', [HomeController::class, 'index']);
-$router->post('/auth/register', RegisterController::class);
-$router->post('/auth/login', LoginController::class);
-$router->post('/auth/logout', LogoutController::class);
+$router->prefix('auth')->group(function ($router) {
+  $router->post('/register', RegisterController::class);
+  $router->post('/login', LoginController::class);
+  $router->post('/logout', LogoutController::class);
+});
 $router->load();
