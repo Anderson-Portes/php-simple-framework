@@ -12,13 +12,13 @@ class Page
   {
     $path = str_replace('.', '/', $path);
     extract($data + self::constraints());
-    require_once __DIR__ . "\\..\\..\\views\\" . $path . ".php";
+    require_once APP_ROOT . "\\views\\" . $path . ".php";
   }
 
   public static function vue(string $path, array $data = []): void
   {
     $data = $data + self::constraints();
     $path = str_replace('.', '/', $path);
-    require_once __DIR__ . "\\..\\..\\views\\vue.php";
+    require_once APP_ROOT . "\\views\\vue.php";
   }
 }
