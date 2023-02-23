@@ -11,6 +11,7 @@ class Router
   ];
 
   private string $prefix = "";
+  private string $lastPrefix = "";
 
   private function removeBarsToString(string $path): string
   {
@@ -22,14 +23,14 @@ class Router
   public function prefix(string $path): Router
   {
     if (str_ends_with($path, '/')) $path = substr($path, 0, -1);
-    $this->prefix = $path;
+    $this->prefix .= $this->lastPrefix = $path;
     return $this;
   }
 
   public function group(callable $function): Router
   {
     $function($this);
-    $this->prefix("");
+    $this->prefix = str_replace($this->lastPrefix, '', $this->prefix);
     return $this;
   }
 
