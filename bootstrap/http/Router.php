@@ -11,6 +11,7 @@ class Router
   ];
 
   private string $prefix = "";
+  private string $lastPrefix = "";
 
   private function removeBarsToString(string $path): string
   {
@@ -22,15 +23,21 @@ class Router
   public function prefix(string $path): Router
   {
     if (str_ends_with($path, '/')) $path = substr($path, 0, -1);
-    $this->prefix = $path;
+    $this->prefix .= $path;
+    $this->lastPrefix = $path;
     return $this;
   }
 
   public function group(callable $function): Router
   {
     $function($this);
-    $this->prefix("");
+    $this->prefix = str_replace($this->lastPrefix, '', $this->prefix);
     return $this;
+  }
+
+  public function listRoutes()
+  {
+    return json($this->routes);
   }
 
   private function addRoute(string $path, callable | array | string $action, string $method): void
@@ -63,10 +70,6 @@ class Router
   public function delete(string $path, callable | array | string $action): void
   {
     $this->addRoute($path, $action, 'DELETE');
-  }
-
-  public function listRoutes()
-  {
   }
 
   public function api(string $path, string $controllerNamespace, array $options = []): void

@@ -2,7 +2,7 @@
 
 class User extends Model
 {
-  protected string $table = 'users';
+  protected string $table = 'user';
   protected array $fields = [
     'name',
     'email',
