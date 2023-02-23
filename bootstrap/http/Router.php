@@ -10,10 +10,33 @@ class Router
     "DELETE" => []
   ];
 
-  private function addRoute(string $path, callable | array | string $action, string $method): void
+  private string $prefix = "";
+
+  private function removeBarsToString(string $path): string
   {
     if (str_starts_with($path, '/')) $path = substr($path, 1);
     if (str_ends_with($path, '/')) $path = substr($path, 0, -1);
+    return $path;
+  }
+
+  public function prefix(string $path): Router
+  {
+    if (str_ends_with($path, '/')) $path = substr($path, 0, -1);
+    $this->prefix = $path;
+    return $this;
+  }
+
+  public function group(callable $function): Router
+  {
+    $function($this);
+    $this->prefix("");
+    return $this;
+  }
+
+  private function addRoute(string $path, callable | array | string $action, string $method): void
+  {
+    if (str_starts_with($path, '/')) $path = substr($path, 1);
+    $path = $this->removeBarsToString($this->prefix . "/" . $path);
     $this->routes[$method][$path] = $action;
   }
 
@@ -40,10 +63,6 @@ class Router
   public function delete(string $path, callable | array | string $action): void
   {
     $this->addRoute($path, $action, 'DELETE');
-  }
-
-  public function listRoutes()
-  {
   }
 
   public function api(string $path, string $controllerNamespace, array $options = []): void

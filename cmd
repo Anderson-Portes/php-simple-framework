@@ -8,7 +8,7 @@ if (empty($argv)) die;
 if (in_array("migrate", $argv)) {
   if (in_array("--truncate", $argv))
     DB::query("drop database if exists " . DB_NAME . ";create database " . DB_NAME . ";");
-  $databaseDir = __DIR__ . "\\database";
+  $databaseDir = __DIR__ . "\\bootstrap\\database\\tables";
   if (!is_dir($databaseDir)) die;
   $tables = array_filter(scandir($databaseDir), fn ($dir) => !in_array($dir, ['.', '..']) && str_ends_with($dir, '.php'));
   foreach ($tables as $tableName) {

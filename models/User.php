@@ -2,7 +2,8 @@
 
 class User extends Model
 {
-  protected string $table = 'users';
+  use TableIsModel;
+
   protected array $fields = [
     'name',
     'email',

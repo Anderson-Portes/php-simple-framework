@@ -90,7 +90,7 @@ function runMiddlewares(...$middlewares)
   array_map(fn ($m) => $m::run(), $middlewares);
 }
 
-function not_found()
+function not_found(string $message = "Page not found.")
 {
-  return Response::notFound();
+  return Response::notFound($message);
 }

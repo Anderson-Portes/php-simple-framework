@@ -8,10 +8,10 @@ class Response
     return json_encode($data);
   }
 
-  public static function notFound()
+  public static function notFound(string $message)
   {
     if (request()->wantsJson())
-      die(json(['message' => 'Page not found.'], 404));
-    return page('errors.404');
+      die(json(['message' => $message], 404));
+    return page('errors.404', compact('message'));
   }
 }
