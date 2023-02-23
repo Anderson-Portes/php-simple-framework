@@ -12,4 +12,4 @@ $router->prefix('/auth/')->group(function ($router) {
   ]);
   $router->post('/logout/', LogoutController::class);
 });
-dumpDie($router);
+$router->load();
