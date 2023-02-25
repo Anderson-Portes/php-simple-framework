@@ -11,7 +11,7 @@ class RegisterController
 
   public function index()
   {
-    return vue('Auth.Register');
+    return react('Auth.Register');
   }
 
   public function create()

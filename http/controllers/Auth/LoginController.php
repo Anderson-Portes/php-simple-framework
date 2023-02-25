@@ -9,7 +9,7 @@ class LoginController
 
   public function index()
   {
-    return vue('Auth.Login');
+    return react('Auth.Login');
   }
 
   public function create()

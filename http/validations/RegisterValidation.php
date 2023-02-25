@@ -21,7 +21,7 @@ class RegisterValidation extends Validation
         if ((new User)->firstWhere("email = '" . $email . "'"))
           return 'Email already exists';
         if (!filter_var($email, FILTER_VALIDATE_EMAIL))
-          return "This field must to be a valida email";
+          return "This field must to be a valide email";
         if (strlen($email) > 255)
           return "The email must to me a max of 255 characters";
       },

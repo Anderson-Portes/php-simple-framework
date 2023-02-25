@@ -1,8 +1,8 @@
 <?php
 
-function json(mixed $response, int $stausCode = 200, bool $setContentType = false)
+function json(mixed $response, int $stausCode = 200)
 {
-  return Response::json($response, $stausCode, $setContentType);
+  return Response::json($response, $stausCode);
 }
 
 function dumpDie(mixed $value)
@@ -70,9 +70,9 @@ function session(): Session
   return new Session;
 }
 
-function vue(string $path, array $data = []): void
+function react(string $path, array $data = []): void
 {
-  Page::vue($path, $data);
+  Page::react($path, $data);
 }
 
 function bcrypt(string $text): string

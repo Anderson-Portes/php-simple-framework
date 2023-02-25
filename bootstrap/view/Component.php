@@ -9,10 +9,10 @@ class Component
     include APP_ROOT . "\\views\\components\\" . $path . ".php";
   }
 
-  public static function vue(string $path): string
+  public static function react(string $path): string
   {
     $path = str_replace('.', '/', $path);
-    return '<script src="' . site_url('/public/vue/' . $path . '.js') . '"></script>';
+    return '<script src="' . site_url('/public/react/' . $path . '.jsx') . '"></script>';
   }
 
   public static function asset(string $path = ""): string
