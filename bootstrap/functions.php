@@ -1,8 +1,8 @@
 <?php
 
-function json(mixed $response, int $stausCode = 200)
+function json(mixed $response, int $stausCode = 200, bool $setContentType = false)
 {
-  return Response::json($response, $stausCode);
+  return Response::json($response, $stausCode, $setContentType);
 }
 
 function dumpDie(mixed $value)

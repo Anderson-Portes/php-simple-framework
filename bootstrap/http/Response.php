@@ -2,10 +2,11 @@
 
 class Response
 {
-  public static function json($data, int $statusCode = 200): string
+  public static function json($data, int $statusCode = 200, bool $setContentType = false): string
   {
     http_response_code($statusCode);
-    header('Content-Type:application/json');
+    if ($setContentType)
+      header('Content-Type:application/json');
     return json_encode($data);
   }
 
