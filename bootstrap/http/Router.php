@@ -23,8 +23,7 @@ class Router
   public function prefix(string $path): Router
   {
     if (str_ends_with($path, '/')) $path = substr($path, 0, -1);
-    $this->prefix .= $path;
-    $this->lastPrefix = $path;
+    $this->prefix .= $this->lastPrefix = $path;
     return $this;
   }
 
@@ -137,6 +136,6 @@ class Router
       if (!$validRoute) continue;
       die($this->callAction($value, $vars));
     }
-    die(json(['message' => 'Page not found.'], 404));
+    die(json(['success' => false, 'message' => 'Page not found.'], 404));
   }
 }
