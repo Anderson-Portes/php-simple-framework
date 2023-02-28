@@ -13,7 +13,7 @@ class LoginValidation extends Validation
           return "The email field is required";
         if (!is_string($email))
           return "The email field must to be a text";
-        if (!$this->user = (new User)->firstWhere("email = '" . $email . "'"))
+        if (!$this->user = User::make()->firstWhere("email = '" . $email . "'"))
           return "Invalid login";
       },
       'password' => function ($password) {
