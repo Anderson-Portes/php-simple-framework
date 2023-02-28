@@ -1,5 +1,5 @@
-<?= component('layout.header', ['nav' => true])  ?>
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<?= component('layout.header', ['nav' => true, 'axios' => true])  ?>
+<script src="<?= asset('/js/vue.global.js') ?>"></script>
 <div id="app">
   <?php require_once APP_ROOT . "\\public\\vue\\" . $path . ".vue" ?>
 </div>
