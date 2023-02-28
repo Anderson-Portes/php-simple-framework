@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= APP_NAME ?></title>
-  <link rel="stylesheet" href="<?= site_url('/public/css/bootstrap.min.css') ?>">
-  <link rel="stylesheet" href="<?= site_url('/public/css/bootstrap-icons.css') ?>">
+  <link rel="stylesheet" href="<?= asset('/css/bootstrap.min.css') ?>">
+  <link rel="stylesheet" href="<?= asset('/css/bootstrap-icons.css') ?>">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
 
@@ -15,9 +15,9 @@
     }
   </style>
   <?php if (isset($react) && $react) : ?>
-    <script src="<?= site_url('/public/js/react.production.min.js') ?>"></script>
-    <script src="<?= site_url('/public/js/react-dom.production.min.js') ?>"></script>
-    <script src="<?= site_url('/public/js/babel.js') ?>"></script>
+    <script src="<?= asset('/js/react.production.min.js') ?>"></script>
+    <script src="<?= asset('/js/react-dom.production.min.js') ?>"></script>
+    <script src="<?= asset('/js/babel.js') ?>"></script>
   <?php endif; ?>
 </head>
 
