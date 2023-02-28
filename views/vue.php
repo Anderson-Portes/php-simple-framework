@@ -1,7 +1,7 @@
 <?= component('layout.header', ['nav' => true, 'axios' => true])  ?>
 <script src="<?= asset('/js/vue.global.js') ?>"></script>
 <div id="app">
-  <?php require_once APP_ROOT . "\\public\\vue\\" . $path . ".vue" ?>
+  <?php require_once APP_ROOT . "\\public\\vue\\Pages\\" . $path . ".vue" ?>
 </div>
 <script>
   const appDiv = document.getElementById("app");

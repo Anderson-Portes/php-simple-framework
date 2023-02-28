@@ -60,7 +60,7 @@ function redirect_back(): void
   Redirect::back();
 }
 
-function asset(string $path = "")
+function asset(string $path = ""): string
 {
   return Component::asset($path);
 }
