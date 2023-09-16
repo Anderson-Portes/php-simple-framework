@@ -30,7 +30,14 @@ abstract class Model
     foreach ($this->fields as $key => $field) {
       $data[$field] = $data[$field] ?? null;
       $fieldsStr .= $field . (array_key_last($this->fields) == $key ? ")" : ",");
-      $valuesStr .= (is_string($data[$field]) ? "'" . $data[$field] . "'" : $data[$field] ?? 'null') . (array_key_last($this->fields) === $key ? ")" : ",");
+      if (is_string($data[$field])) {
+        $valuesStr .= "'" . $data[$field] . "'";
+      } else if (is_bool($data[$field])) {
+        $valuesStr .= $data[$field] ? 'true' : 'false';
+      } else {
+        $valuesStr .= $data[$field] ?? 'null';
+      }
+      $valuesStr .= array_key_last($this->fields) === $key ? ")" : ",";
     }
     $this->conn->query("insert into " . $this->table . " " . $fieldsStr . " values " . $valuesStr);
     return $this->last();
