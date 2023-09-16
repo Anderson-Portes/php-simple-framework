@@ -30,7 +30,14 @@ abstract class Model
     foreach ($this->fields as $key => $field) {
       $data[$field] = $data[$field] ?? null;
       $fieldsStr .= $field . (array_key_last($this->fields) == $key ? ")" : ",");
-      $valuesStr .= (is_string($data[$field]) ? "'" . $data[$field] . "'" : $data[$field] ?? 'null') . (array_key_last($this->fields) === $key ? ")" : ",");
+      if (is_string($data[$field])) {
+        $valuesStr .= "'" . $data[$field] . "'";
+      } else if (is_bool($data[$field])) {
+        $valuesStr .= $data[$field] ? 'true' : 'false';
+      } else {
+        $valuesStr .= $data[$field] ?? 'null';
+      }
+      $valuesStr .= array_key_last($this->fields) === $key ? ")" : ",";
     }
     $this->conn->query("insert into " . $this->table . " " . $fieldsStr . " values " . $valuesStr);
     return $this->last();
@@ -43,7 +50,14 @@ abstract class Model
     }, ARRAY_FILTER_USE_KEY);
     $setStr = "";
     foreach ($data as $key => $field) {
-      $setStr .= $key . " = " . (is_string($field) ? "'" . $field . "'" : $field) . (array_key_last($data) === $key ? " " : ", ");
+      if (is_string($field)) {
+        $setStr .= $key . " = '" . $field . "'";
+      } else if (is_bool($field)) {
+        $setStr .= $key . " = " . ($field ? 'true' : 'false');
+      } else {
+        $setStr .= $key . " = " . $field;
+      }
+      $setStr .= array_key_last($data) === $key ? " " : ", ";
     }
     $this->conn->query("update " . $this->table . " set " . $setStr . " where " . $this->primaryKey . " = '" . $ref . "'");
     return $this->find($ref);
