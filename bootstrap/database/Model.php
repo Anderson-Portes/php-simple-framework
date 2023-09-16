@@ -50,7 +50,14 @@ abstract class Model
     }, ARRAY_FILTER_USE_KEY);
     $setStr = "";
     foreach ($data as $key => $field) {
-      $setStr .= $key . " = " . (is_string($field) ? "'" . $field . "'" : $field) . (array_key_last($data) === $key ? " " : ", ");
+      if (is_string($field)) {
+        $setStr .= $key . " = '" . $field . "'";
+      } else if (is_bool($field)) {
+        $setStr .= $key . " = " . ($field ? 'true' : 'false');
+      } else {
+        $setStr .= $key . " = " . $field;
+      }
+      $setStr .= array_key_last($data) === $key ? " " : ", ";
     }
     $this->conn->query("update " . $this->table . " set " . $setStr . " where " . $this->primaryKey . " = '" . $ref . "'");
     return $this->find($ref);
