@@ -133,4 +133,9 @@ class Router
     }
     return not_found();
   }
+
+  public function listRoutes()
+  {
+    return json($this->routes);
+  }
 }
