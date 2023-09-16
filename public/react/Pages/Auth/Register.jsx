@@ -1,7 +1,7 @@
 const { useState } = React;
 const { site_url } = globalProps;
 
-const Page = ({ site_url } = globalProps || {}) => {
+const Page = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -85,8 +85,8 @@ const Page = ({ site_url } = globalProps || {}) => {
                   <i class="bi bi-save me-2"></i>Login
                 </button>
                 <p>
-                  Dont have an account ?
-                  <a href={site_url + "/auth/register"}>Register</a>
+                  Have an account ?
+                  <a href={site_url + "/auth/login"}>Login</a>
                 </p>
               </form>
             </div>
